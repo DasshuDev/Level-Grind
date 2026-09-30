@@ -88,7 +88,7 @@ public:
     web::WebFuture changePoint(PointType type, int coinType, ManageLevelBody levelBody);
     ChangePointResponse changePointParse(web::WebResponse res);
 
-    web::WebFuture syncLevels(int addThreshold, int deleteThreshold, int coinAddThreshold);
+    web::WebFuture syncLevels(int addThreshold, int deleteThreshold, int coinAddThreshold, int coinDeleteThreshold, int lockThreshold);
     SyncLevelsResponse syncLevelsParse(web::WebResponse res);
 
     web::WebFuture newlevel(ManageLevelBody body);
@@ -134,7 +134,7 @@ public:
     // argon
     void performGetToken();
 
-    std::string baseUrl = "https://api.delivel.tech";
+    std::string baseUrl = "https://api.delivel.tech/v2";
 };
 
 }

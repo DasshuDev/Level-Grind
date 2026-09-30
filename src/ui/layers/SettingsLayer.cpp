@@ -646,7 +646,7 @@ void SettingsLayer::createOtherList() {
                         uPopupRef->showSuccessMessage("Success! Admin granted.");
                         DataManager::getInstance().setUserPosition(GrindPosition::Admin);
                     } else if (pos == 3) {
-                        uPopupRef->showSuccessMessage("Success! Owner granted.");
+                        uPopupRef->showSuccessMessage("Success! Coordinator granted.");
                         DataManager::getInstance().setUserPosition(GrindPosition::Owner);
                     } else {
                         uPopupRef->showFailMessage("Failed! User is not staff.");

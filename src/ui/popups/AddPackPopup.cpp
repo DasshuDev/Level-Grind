@@ -33,7 +33,7 @@ AddPackPopup* AddPackPopup::create() {
 bool AddPackPopup::init() {
     if (!BasePopup::init({ 280, 280 })) return false;
 
-    setTitle("Grind Owner: Add Pack");
+    setTitle("Grind Coordinator: Add Pack");
 
     auto contentMenu = Build(CCMenu::create())
         .parent(m_mainLayer)

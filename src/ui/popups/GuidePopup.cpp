@@ -159,6 +159,8 @@ bool GuidePopup::initPage(GuidePage page) {
             return initNotesGuidePage();
         case GuidePage::OwnerRoleGuide:
             return initOwnerRoleGuidePage();
+        case levelgrind::GuidePage::DeveloperRoleGuide:
+            return initDeveloperRoleGuidePage();
         case GuidePage::AdminRoleGuide:
             return initAdminRoleGuidePage();
         case GuidePage::HelperRoleGuide:
@@ -224,7 +226,8 @@ bool GuidePopup::initMainPage() {
     listNode->addCell(createGuideSection("Level Indicators", [this]{initPage(GuidePage::LevelIndicatorsGuide);}, 14));
     listNode->addCell(createGuideSection("Credits Info", [this]{initPage(GuidePage::CreditsInfo);}, 15));
     listNode->addCell(createGuideSection("Notes Info", [this] { initPage(GuidePage::NotesGuide); }, 4));
-    listNode->addCell(createGuideSection("Owner Role", [this] { initPage(GuidePage::OwnerRoleGuide); }, 5));
+    listNode->addCell(createGuideSection("Coordinator Role", [this] { initPage(GuidePage::OwnerRoleGuide); }, 5));
+    listNode->addCell(createGuideSection("Developer Role", [this]{initPage(GuidePage::DeveloperRoleGuide);}, 16));
     listNode->addCell(createGuideSection("Admin Role", [this] { initPage(GuidePage::AdminRoleGuide); }, 6));
     listNode->addCell(createGuideSection("Helper Role", [this] { initPage(GuidePage::HelperRoleGuide); }, 7));
     listNode->addCell(createGuideSection("Artist Role", [this] { initPage(GuidePage::ArtistRoleGuide); }, 8));
@@ -393,9 +396,22 @@ bool GuidePopup::initOwnerRoleGuidePage() {
     addReturnButton();
     addGrindLogo();
     addTextArea(
-        "# <cp>Owner Role</c>\n\n"
-        "<cp>Owners</c> are responsible for leading the <cp>Level Grind</c> project.\n"
-        "They manage <cr>development</c>, make <cj>final decisions</c>, and oversee all roles."
+        "# <cp>Coordinator Role</c>\n\n"
+        "<cp>Coordinators</c> are responsible for leading the <cp>Level Grind</c> project.\n"
+        "They oversee all decisions, roles, and overall responsible for managing the mod."
+    );
+    addScrollbar(typeinfo_cast<geode::MDTextArea*>(getChildByIDRecursive("md-text-area"))->getScrollLayer());
+    
+    return true;
+}
+
+bool GuidePopup::initDeveloperRoleGuidePage() {
+    addReturnButton();
+    addGrindLogo();
+    addTextArea(
+        "# <cg>Developer Role</c>\n\n"
+        "<cg>Developers</c> are responsible for developing the <cp>Level Grind</c> project.\n"
+        "They fix bugs, add new features to the mod etc."
     );
     addScrollbar(typeinfo_cast<geode::MDTextArea*>(getChildByIDRecursive("md-text-area"))->getScrollLayer());
     

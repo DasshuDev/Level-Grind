@@ -4,20 +4,21 @@
 #include <Geode/binding/ProfilePage.hpp>
 #include "../managers/DataManager.hpp"
 #include "../ui/popups/UserManagePopup.hpp"
-#include "../ui/popups/GuidePopup.hpp"
+// #include "../ui/popups/GuidePopup.hpp"
 #include "Geode/cocos/sprite_nodes/CCSprite.h"
-#include "Geode/utils/cocos.hpp"
-#include "Geode/utils/function.hpp"
+// #include "Geode/utils/cocos.hpp"
+// #include "Geode/utils/function.hpp"
 
 #include <Geode/modify/ProfilePage.hpp>
 
-#include "../ui/popups/GuidePopup.hpp"
+// #include "../ui/popups/GuidePopup.hpp"
 
 using namespace geode::prelude;
 
 namespace levelgrind {
 
 class $modify(GrindProfilePage, ProfilePage) {
+    /*
     void fixBadges() {
         if (auto badge = getChildByIDRecursive("owner-badge"_spr)) badge->removeFromParent();
         if (auto badge = getChildByIDRecursive("admin-badge"_spr)) badge->removeFromParent();
@@ -26,8 +27,11 @@ class $modify(GrindProfilePage, ProfilePage) {
         if (auto badge = getChildByIDRecursive("contrib-badge"_spr)) badge->removeFromParent();
         if (auto badge = getChildByIDRecursive("booster-badge"_spr)) badge->removeFromParent();
     }
+    */
     void loadPageFromUserInfo(GJUserScore* score) {
         ProfilePage::loadPageFromUserInfo(score);
+
+        /*
 
         this->fixBadges();
 
@@ -113,7 +117,11 @@ class $modify(GrindProfilePage, ProfilePage) {
             }
         };
 
+        */
+
         auto& dm = DataManager::getInstance();
+
+        /*
         auto shared = dm.getSharedData();
 
         bool ownerFound =
@@ -150,6 +158,8 @@ class $modify(GrindProfilePage, ProfilePage) {
         }
 
         usernameMenu->updateLayout();
+
+        */
 
         auto leftMenu = getChildByIDRecursive("left-menu");
 		if (!leftMenu) return;

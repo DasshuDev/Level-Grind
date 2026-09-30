@@ -54,7 +54,7 @@ bool AddAnnouncementPopup::init() {
     if (DataManager::getInstance().getUserPosition() == GrindPosition::Admin) {
         setTitle("Grind Admin: Add Announcement");
     } else if (DataManager::getInstance().getUserPosition() == GrindPosition::Owner) {
-        setTitle("Grind Owner: Add Announcement");
+        setTitle("Grind Coordinator: Add Announcement");
     } else {
         setTitle("Unknown Role: Add Announcement");
         Notification::create("You are not allowed to add announcements.", NotificationIcon::Error)->show();

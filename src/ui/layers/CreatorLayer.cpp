@@ -72,11 +72,11 @@ bool CreatorLayer::init() {
         .pos(
             centerX(), centerY() - 10
         )
-        .scale(0.8f)
+        .scale(0.83f)
         .contentSize({
             400, 240
         })
-        .layout(RowLayout::create()->setGap(10)->setGrowCrossAxis(true)->setCrossAxisOverflow(false))
+        .layout(RowLayout::create()->setGap(5)->setGrowCrossAxis(true)->setCrossAxisOverflow(false))
         .parent(this)
         .collect();
 

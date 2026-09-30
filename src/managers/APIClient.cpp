@@ -62,7 +62,7 @@ web::WebFuture APIClient::syncPet() {
 	}
 	req.bodyJSON(body);
 
-    return req.post(fmt::format("{}{}", baseUrl, "/get_create_pet"));
+    return req.post(fmt::format("{}{}", baseUrl, "/sync_pet"));
 }
 
 web::WebFuture APIClient::health() {
@@ -541,19 +541,21 @@ BootupGetResponse APIClient::bootupGetParse(web::WebResponse res) {
     auto staffs = json["staff"];
 
     auto owners = staffs["owners"].asArray();
+    auto developers = staffs["developers"].asArray();
     auto admins = staffs["admins"].asArray();
     auto helpers = staffs["helpers"].asArray();
     auto contributors = staffs["contributors"].asArray();
     auto artists = staffs["artists"].asArray();
     auto boosters = staffs["boosters"].asArray();
 
-    if (!owners || !admins || !helpers || !contributors || !artists || !boosters) {
+    if (!owners || !developers || !admins || !helpers || !contributors || !artists || !boosters) {
         log::error("bad web req, code: {}", res.code());
         ret.ok = false;
         return ret;
     }
 
     std::vector<int> ownersArr;
+    std::vector<int> developersArr;
     std::vector<int> helpersArr;
     std::vector<int> adminsArr;
     std::vector<int> artistsArr;
@@ -564,6 +566,12 @@ BootupGetResponse APIClient::bootupGetParse(web::WebResponse res) {
         auto accountId = val["accountId"].asInt();
         if (!accountId) continue;
         ownersArr.push_back(accountId.unwrapOrDefault());
+    }
+
+    for (auto const& val : developers.unwrap()) {
+        auto accountId = val["accountId"].asInt();
+        if (!accountId) continue;
+        developersArr.push_back(accountId.unwrapOrDefault());
     }
 
     for (auto const& val : admins.unwrap()) {
@@ -597,6 +605,7 @@ BootupGetResponse APIClient::bootupGetParse(web::WebResponse res) {
     }
 
     ret.admins = adminsArr;
+    ret.developers = developersArr;
     ret.owners = ownersArr;
     ret.helpers = helpersArr;
     ret.artists = artistsArr;
@@ -940,7 +949,7 @@ ChangePointResponse APIClient::changePointParse(web::WebResponse res) {
     return ret;
 }
 
-web::WebFuture APIClient::syncLevels(int addThreshold, int deleteThreshold, int coinAddThreshold) {
+web::WebFuture APIClient::syncLevels(int addThreshold, int deleteThreshold, int coinAddThreshold, int coinDeleteThreshold, int lockThreshold) {
     auto req = web::WebRequest();
     req.timeout(std::chrono::seconds{30});
     matjson::Value reqBody;
@@ -950,6 +959,8 @@ web::WebFuture APIClient::syncLevels(int addThreshold, int deleteThreshold, int 
     reqBody["addThreshold"] = addThreshold;
     reqBody["deleteThreshold"] = deleteThreshold;
     reqBody["coinAddThreshold"] = coinAddThreshold;
+    reqBody["coinDeleteThreshold"] = coinDeleteThreshold;
+    reqBody["lockThreshold"] = lockThreshold;
 
     req.bodyJSON(reqBody);
     return req.post(fmt::format("{}{}", baseUrl, "/sync_levels"));
@@ -977,6 +988,7 @@ SyncLevelsResponse APIClient::syncLevelsParse(web::WebResponse res) {
     ret.deleted = json["deleted"].asInt().unwrapOrDefault();
     ret.inserted = json["inserted"].asInt().unwrapOrDefault();
     ret.coinUpdates = json["coinUpdates"].asInt().unwrapOrDefault();
+    ret.lockUpdates = json["lockUpdates"].asInt().unwrapOrDefault();
 
     return ret;
 }

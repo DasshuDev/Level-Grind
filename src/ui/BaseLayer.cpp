@@ -1,6 +1,7 @@
 #include "BaseLayer.hpp"
 #include "Geode/cocos/CCDirector.h"
 #include "Geode/ui/General.hpp"
+#include <Geode/binding/GameManager.hpp>
 #include <cue/RepeatingBackground.hpp>
 
 #include <UIBuilder.hpp>
@@ -56,7 +57,6 @@ void BaseLayer::replaceBgToClassic() {
     m_bg->removeFromParent();
 
     auto newBg = createLayerBG();
-    newBg->setColor({ 0, 102, 255 });
     addChild(newBg, -1);
 
     return;

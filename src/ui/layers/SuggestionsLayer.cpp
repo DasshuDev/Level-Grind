@@ -592,7 +592,7 @@ void SuggestionsLayer::performFetchLevels() {
     auto req = web::WebRequest();
     WeakRef<SuggestionsLayer> weakSelf = this;
 
-    auto url = fmt::format("https://api.delivel.tech/get_suggestions?mode={}", m_suggestionsMode);
+    auto url = fmt::format("https://api.delivel.tech/v2/get_suggestions?mode={}", m_suggestionsMode);
     m_searchTask.spawn(
         req.get(url),
         [weakSelf](web::WebResponse const& res) {

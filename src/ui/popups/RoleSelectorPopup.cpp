@@ -38,7 +38,7 @@ bool RoleSelectorPopup::init(UserRoles roles, GJUserScore* targetUser) {
 
     auto pos = DataManager::getInstance().getUserPosition();
     if (pos == GrindPosition::Owner) {
-        this->setTitle("Grind Owner: Set Roles");
+        this->setTitle("Grind Coordinator: Set Roles");
     } else if (pos == GrindPosition::Admin) {
         this->setTitle("Grind Admin: Set Roles");
     } else {

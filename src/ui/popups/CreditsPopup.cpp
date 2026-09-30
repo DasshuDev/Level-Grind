@@ -141,7 +141,8 @@ private:
             .collect();
 
         std::unordered_map<std::string, const char*> badgeNames {
-            {"Owners", "badge_owner.png"_spr},
+            {"Coordinators", "badge_owner.png"_spr},
+            {"Developers", "badge_artist.png"_spr},
             {"Admins", "badge_admin.png"_spr},
             {"Helpers", "badge_helper.png"_spr},
             {"Artists", "badge_artist.png"_spr},
@@ -168,7 +169,8 @@ private:
             .collect();
 
         std::unordered_map<std::string, GuidePage> infoPageToOpen {
-            {"Owners", GuidePage::OwnerRoleGuide},
+            {"Coordinators", GuidePage::OwnerRoleGuide},
+            {"Developers", GuidePage::DeveloperRoleGuide},
             {"Admins", GuidePage::AdminRoleGuide},
             {"Helpers", GuidePage::HelperRoleGuide},
             {"Artists", GuidePage::ArtistRoleGuide},
@@ -331,7 +333,7 @@ bool CreditsPopup::init() {
     web::WebRequest req;
 
     m_listener.spawn(
-        req.get("https://api.delivel.tech/get_credits"),
+        req.get("https://api.delivel.tech/v2/get_credits"),
         [loadingRef, self](web::WebResponse res) {
             if (!loadingRef || !self) return;
 
@@ -358,7 +360,9 @@ bool CreditsPopup::init() {
             }
 
             CategoryCell::CreditsCategory ownersCat;
-            ownersCat.categoryName = "Owners";
+            ownersCat.categoryName = "Coordinators";
+            CategoryCell::CreditsCategory developersCat;
+            developersCat.categoryName = "Developers";
             CategoryCell::CreditsCategory adminsCat;
             adminsCat.categoryName = "Admins";
             CategoryCell::CreditsCategory helpersCat;
@@ -371,13 +375,14 @@ bool CreditsPopup::init() {
             boostersCat.categoryName = "Boosters";
 
             auto owners = json["owners"].asArray();
+            auto developers = json["developers"].asArray();
             auto admins = json["admins"].asArray();
             auto helpers = json["helpers"].asArray();
             auto artists = json["artists"].asArray();
             auto contributors = json["contributors"].asArray();
             auto boosters = json["boosters"].asArray();
 
-            if (!owners || !admins || !helpers || !artists || !contributors || !boosters) {
+            if (!owners || !developers || !admins || !helpers || !artists || !contributors || !boosters) {
                 log::warn("failed to get credits");
                 loadingRef->removeFromParent();
                 Notification::create("Invalid server response", NotificationIcon::Error)->show();
@@ -394,6 +399,18 @@ bool CreditsPopup::init() {
                 user.cube = userRes["iconid"].asInt().unwrapOrDefault();
 
                 ownersCat.users.push_back(user);
+            }
+
+            for (auto& userRes : developers.unwrap()) {
+                CreditsPlayerNode::CreditsUser user;
+                user.username = userRes["username"].asString().unwrapOrDefault();
+                user.accountId = userRes["accountId"].asInt().unwrapOrDefault();
+                user.color1 = userRes["color1"].asInt().unwrapOrDefault();
+                user.color2 = userRes["color2"].asInt().unwrapOrDefault();
+                user.glowColor = userRes["color3"].asInt().unwrapOrDefault();
+                user.cube = userRes["iconid"].asInt().unwrapOrDefault();
+
+                developersCat.users.push_back(user);
             }
 
             for (auto& userRes : admins.unwrap()) {
@@ -457,6 +474,7 @@ bool CreditsPopup::init() {
             }
 
             self->m_list->addCell(CategoryCell::create(ownersCat));
+            self->m_list->addCell(CategoryCell::create(developersCat));
             self->m_list->addCell(CategoryCell::create(adminsCat));
             self->m_list->addCell(CategoryCell::create(helpersCat));
             self->m_list->addCell(CategoryCell::create(artistsCat));

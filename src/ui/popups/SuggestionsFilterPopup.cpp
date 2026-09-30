@@ -30,7 +30,7 @@ bool SuggestionsFilterPopup::init(SuggestionsLayer* owner) {
     if (pos == GrindPosition::User) setTitle("Unknown Role: Filter");
     else if (pos == GrindPosition::Helper) setTitle("Grind Helper: Filter");
     else if (pos == GrindPosition::Admin) setTitle("Grind Admin: Filter");
-    else if (pos == GrindPosition::Owner) setTitle("Grind Owner: Filter");
+    else if (pos == GrindPosition::Owner) setTitle("Grind Coordinator: Filter");
 
     enum class States {
         More,

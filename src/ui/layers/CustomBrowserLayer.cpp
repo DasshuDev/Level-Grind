@@ -598,10 +598,10 @@ void CustomBrowserLayer::performFetchLevels() {
 
     auto getURL = [this, &req](CustomBrowserType type, EventType eventType) {
         if (type == CustomBrowserType::Search) {
-            return "https://api.delivel.tech/get_levels";
+            return "https://api.delivel.tech/v2/get_levels";
         } else {
             req.param("mode", fmt::format("{}", static_cast<int>(m_eventType)));
-            return "https://api.delivel.tech/get_events_history";
+            return "https://api.delivel.tech/v2/get_events_history";
         }
     };
 

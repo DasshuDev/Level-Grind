@@ -47,7 +47,7 @@ private:
         if (DataManager::getInstance().getUserPosition() == GrindPosition::Admin) {
             this->setTitle("Grind Admin: Ban Pet");
         } else if (DataManager::getInstance().getUserPosition() == GrindPosition::Owner) {
-            this->setTitle("Grind Owner: Ban Pet");
+            this->setTitle("Grind Coordinator: Ban Pet");
         } else {
             this->setTitle("Unknown Role: Ban Pet");
         }
@@ -122,7 +122,7 @@ bool UserManagePopup::init(GJUserScore* targetUser) {
     if (pos == GrindPosition::Admin) {
         this->setTitle("Grind Admin: Manage User");
     } else if (pos == GrindPosition::Owner) {
-        this->setTitle("Grind Owner: Manage User");
+        this->setTitle("Grind Coordinator: Manage User");
     } else {
         this->setTitle("Unknown Role: Manage User");
     }

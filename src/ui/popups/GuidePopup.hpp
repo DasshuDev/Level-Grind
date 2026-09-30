@@ -34,6 +34,7 @@ private:
     bool initWeeklyAchievementsGuidePage();
     bool initNotesGuidePage();
     bool initOwnerRoleGuidePage();
+    bool initDeveloperRoleGuidePage();
     bool initAdminRoleGuidePage();
     bool initHelperRoleGuidePage();
     bool initArtistRoleGuidePage();

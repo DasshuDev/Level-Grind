@@ -127,6 +127,11 @@ bool PetLayer::init() {
 }
 
 void PetLayer::drawUIFromData(PetManager::PetData data, NineSlice* mainPanel) {
+    if (data.isBanned) {
+        changeMusic(MusicMode::Out);
+        this->onBack(nullptr);
+        return;
+    }
     CCSize mainPanelCS = mainPanel->getContentSize();
 
     m_petLabel = Build(CCLabelBMFont::create(data.petName.c_str(), "goldFont.fnt"))

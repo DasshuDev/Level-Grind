@@ -39,6 +39,7 @@ namespace levelgrind {
     struct BootupGetResponse {
         bool ok;
         std::vector<int> owners;
+        std::vector<int> developers;
         std::vector<int> helpers;
         std::vector<int> admins;
         std::vector<int> artists;
@@ -103,6 +104,7 @@ namespace levelgrind {
         int deleted;
         int inserted;
         int coinUpdates;
+        int lockUpdates;
     };
 
     struct ManageLevelBody {
@@ -137,7 +139,8 @@ namespace levelgrind {
         GrindPacksGuide = 13,
         HelperSuggestionsGuide = 14,
         LevelIndicatorsGuide = 15,
-        CreditsInfo = 16
+        CreditsInfo = 16,
+        DeveloperRoleGuide = 17
     };
 
     struct Indicators {

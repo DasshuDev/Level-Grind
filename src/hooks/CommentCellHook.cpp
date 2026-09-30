@@ -2,9 +2,9 @@
 #include <Geode/modify/CommentCell.hpp>
 #include <UIBuilder.hpp>
 
-#include "../managers/DataManager.hpp"
+// #include "../managers/DataManager.hpp"
 
-#include "../ui/popups/GuidePopup.hpp"
+// #include "../ui/popups/GuidePopup.hpp"
 
 using namespace geode::prelude;
 
@@ -14,6 +14,8 @@ class $modify(CommentCell) {
     void loadFromComment(GJComment* p0) {
         CommentCell::loadFromComment(p0);
         auto layer = m_mainLayer;
+
+        /*
 
         CCMenu* usernameMenu = static_cast<CCMenu*>(layer->getChildByIDRecursive("username-menu"));
 
@@ -134,6 +136,7 @@ class $modify(CommentCell) {
         }
 
         usernameMenu->updateLayout();
+        */
     }
 };
 

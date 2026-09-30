@@ -34,7 +34,7 @@ bool WeeklyAchievementConfigurePopup::init(GJUserScore* userScore) {
     if (pos == GrindPosition::Admin) {
         this->setTitle("Grind Admin: Configure Weekly Achievements");
     } else if (pos == GrindPosition::Owner) {
-        this->setTitle("Grind Owner: Configure Weekly Achievements");
+        this->setTitle("Grind Coordinator: Configure Weekly Achievements");
     } else {
         this->setTitle("Unknown Role: Configure Weekly Achievements");
         this->onClose(nullptr);

@@ -1,5 +1,5 @@
 {
-	"geode": "5.7.1",
+	"geode": "5.10.1",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -8,12 +8,12 @@
 	},
 	"id": "delivel.level-grind",
 	"name": "Level Grind",
-	"version": "v2.0.4",
-	"developer": "delivel",
+	"version": "v2.1.0",
+	"developers": ["Delivel", "DasshuDev"],
 	"description": "A big storage of levels for grinding!",
 	"dependencies": {
 		"geode.node-ids": ">=v1.20.0",
-		"jouca.badgesapi": ">=v1.5.0"
+		"dasshu.badgified": ">=v1.0.4"
 	},
 	"resources": {
 		"sprites": [

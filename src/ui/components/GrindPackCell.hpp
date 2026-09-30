@@ -15,6 +15,7 @@
 #include "Geode/cocos/menu_nodes/CCMenu.h"
 #include "Geode/cocos/sprite_nodes/CCSprite.h"
 #include "Geode/ui/Layout.hpp"
+#include "Geode/ui/Popup.hpp"
 #include "Geode/ui/ProgressBar.hpp"
 #include "Geode/utils/async.hpp"
 #include "Geode/utils/web.hpp"
@@ -172,21 +173,30 @@ private:
             auto deleteBtn = Build(CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"))
                 .scale(0.5f)
                 .intoMenuItem([this, packInfo] {
-                    auto uPopup = UploadActionPopup::create(nullptr, "Deleting pack...");
-                    uPopup->show();
+                    createQuickPopup(
+                        "Are you sure?",
+                        "Do you want to delete this Grind Pack?",
+                        "Cancel", "Delete",
+                        [&](auto, bool btn2) {
+                            if (btn2) {
+                                auto uPopup = UploadActionPopup::create(nullptr, "Deleting pack...");
+                                uPopup->show();
 
-                    auto uPopupRef = Ref(uPopup);
+                                auto uPopupRef = Ref(uPopup);
 
-                    this->m_listener.spawn(
-                        APIClient::getInstance().deleteGrindPack(packInfo.id),
-                        [uPopupRef](web::WebResponse res) {
-                            if (!uPopupRef) return;
-                            if (!res.ok()) {
-                                log::error("bad web req");
-                                uPopupRef->showFailMessage("Failed! Try again later.");
-                                return;
-                            } else {
-                                uPopupRef->showSuccessMessage("Success! Pack deleted.");
+                                this->m_listener.spawn(
+                                    APIClient::getInstance().deleteGrindPack(packInfo.id),
+                                    [uPopupRef](web::WebResponse res) {
+                                        if (!uPopupRef) return;
+                                        if (!res.ok()) {
+                                            log::error("bad web req");
+                                            uPopupRef->showFailMessage("Failed! Try again later.");
+                                            return;
+                                        } else {
+                                            uPopupRef->showSuccessMessage("Success! Pack deleted.");
+                                        }
+                                    }
+                                );
                             }
                         }
                     );

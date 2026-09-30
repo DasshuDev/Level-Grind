@@ -75,15 +75,17 @@ class $modify(LevelGrind, LevelInfoLayer) {
         }
 
         auto titleLabel = this->getChildByID("title-label");
-        auto dailyLabel = this->getChildByID("daily-label");
+
+        int intvar = 8;
+
+        intvar > 6 ? [&]{log::info("what am i doing here??");}() : [&]{log::info("its weird af");}();
 
         if (titleLabel && Mod::get()->getSavedValue<bool>("enable-indicators")) {
-            auto eventGap = dailyLabel ? dailyLabel->getScaledContentWidth() : 0;
             auto infoBtnMenu = Build(CCMenu::create())
                 .parent(this)
                 .id("indicators-btn-menu"_spr)
                 .pos({
-                    this->getContentWidth() / 2 - 13 - eventGap - titleLabel->getScaledContentWidth() / 2,
+                    this->getContentWidth() / 2 - 13 - titleLabel->getScaledContentWidth() / 2,
                     titleLabel->getPositionY()
                 })
                 .collect();

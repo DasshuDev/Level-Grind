@@ -28,7 +28,7 @@ bool StaffPopup::init() {
     if (pos == GrindPosition::Admin) {
         this->setTitle("Grind Admin: Staff Panel");
     } else if (pos == GrindPosition::Owner) {
-        this->setTitle("Grind Owner: Staff Panel");
+        this->setTitle("Grind Coordinator: Staff Panel");
     } else {
         this->setTitle("Unknown Role: Staff Panel");
     }

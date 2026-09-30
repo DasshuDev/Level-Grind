@@ -43,7 +43,7 @@ bool EventsManagePopup::init() {
     if (pos == GrindPosition::Admin) {
         this->setTitle("Grind Admin: Queue Events");
     } else if (pos == GrindPosition::Owner) {
-        this->setTitle("Grind Owner: Queue Events");
+        this->setTitle("Grind Coordinator: Queue Events");
     } else {
         this->onClose(nullptr);
     }
@@ -143,7 +143,7 @@ bool EventsManagePopup::init() {
     auto loadingRef = Ref(loading);
 
     m_listener.spawn(
-        web::WebRequest().get("https://api.delivel.tech/get_events_dates"),
+        web::WebRequest().get("https://api.delivel.tech/v2/get_events_dates"),
         [self, loadingRef](web::WebResponse res) {
             if (!self || !loadingRef) return;
             if (!res.ok()) {
